@@ -21,17 +21,17 @@ public class LCBORestAdapter {
 
     interface LCBOService {
         @GET(UrlManager.API_PRODUCTS)
-        Observable<ProductsResponse> getProducts(@Query(UrlManager.KEY_ALIAS) final String key);
+        Observable<ProductsResponse> getProducts(@Query(UrlManager.KEY_ALIAS) final String key, @Query(UrlManager.PAGE_ALIAS) final String page);
 
         @GET(UrlManager.API_STORES)
-        Observable<StoresResponse> getStores(@Query(UrlManager.KEY_ALIAS) final String key);
+        Observable<StoresResponse> getStores(@Query(UrlManager.KEY_ALIAS) final String key, @Query(UrlManager.PAGE_ALIAS) final String page);
     }
 
-    public Observable<ProductsResponse> getProducts(final String key) {
-        return lcboService.getProducts(key);
+    public Observable<ProductsResponse> getProducts(final String key, final String page) {
+        return lcboService.getProducts(key, page);
     }
 
-    public Observable<StoresResponse> getStores(final String key) {
-        return lcboService.getStores(key);
+    public Observable<StoresResponse> getStores(final String key, final String page) {
+        return lcboService.getStores(key, page);
     }
 }

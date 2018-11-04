@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,11 +16,8 @@ import android.view.ViewGroup;
 
 import org.dogadaev.liquormarket.R;
 import org.dogadaev.liquormarket.application.LiquorMarketApplication;
-import org.dogadaev.liquormarket.data.model.ProductItem;
 import org.dogadaev.liquormarket.presentation.view.adapter.ProductsRecyclerAdapter;
 import org.dogadaev.liquormarket.presentation.vm.ProductsViewModel;
-
-import java.util.List;
 
 public class ProductsFragment extends Fragment {
 
@@ -40,11 +36,36 @@ public class ProductsFragment extends Fragment {
 
         productsViewModel = ViewModelProviders.of(this, ((LiquorMarketApplication) getActivity().getApplication()).getViewModelFactory()).get(ProductsViewModel.class);
 
+        recyclerView.setHasFixedSize(true);
         ProductsRecyclerAdapter recyclerAdapter = new ProductsRecyclerAdapter();
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerAdapter);
 
-        productsViewModel.getItemsLiveData().observe(getActivity(), recyclerAdapter::updateDataSet);
+        productsViewModel.getItemsLiveData().observe(getActivity(), recyclerAdapter::addData);
+
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            boolean loading = true;
+            int pastVisiblesItems, visibleItemCount, totalItemCount;
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    visibleItemCount = layoutManager.getChildCount();
+                    totalItemCount = layoutManager.getItemCount();
+                    pastVisiblesItems = layoutManager.findFirstVisibleItemPosition();
+
+                    if (loading) {
+                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                            loading = false;
+                            productsViewModel.hitLCBOApi("2");
+                        }
+                    }
+                }
+            }
+        });
 
         return rootView;
     }

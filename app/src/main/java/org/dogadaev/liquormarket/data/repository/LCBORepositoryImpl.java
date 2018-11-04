@@ -4,10 +4,7 @@ import org.dogadaev.liquormarket.data.LCBORestAdapter;
 import org.dogadaev.liquormarket.data.model.ProductsResponse;
 import org.dogadaev.liquormarket.data.model.StoresResponse;
 
-import androidx.lifecycle.LiveData;
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class LCBORepositoryImpl implements LCBORepository {
 
@@ -18,12 +15,12 @@ public class LCBORepositoryImpl implements LCBORepository {
     }
 
     @Override
-    public Observable<ProductsResponse> getProducts(final String key) {
-        return restAdapter.getProducts(key);
+    public Observable<ProductsResponse> getProducts(final String key, final String page) {
+        return restAdapter.getProducts(key, page);
     }
 
     @Override
-    public Observable<StoresResponse> getStores(final String key) {
-        return restAdapter.getStores(key);
+    public Observable<StoresResponse> getStores(final String key, final String page) {
+        return restAdapter.getStores(key, page);
     }
 }

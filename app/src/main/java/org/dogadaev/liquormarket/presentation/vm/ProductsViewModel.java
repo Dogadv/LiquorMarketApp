@@ -14,6 +14,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ProductsViewModel extends ViewModel {
 
+    private static final String KEY = "MDo4YWUxZGEwNi1kZjRkLTExZTgtYjkxYi0xMzA1ZWYxNjg0ZGY6MGc4M0hhU2JBM1FBdW9CME1JSkZ5MUI5UjRPS2FLTHFCaTR3";
+
     private final LCBORepository repository;
     private final CompositeDisposable disposables = new CompositeDisposable();
     private final MutableLiveData<List<ProductItem>> itemsLiveData = new MutableLiveData<>();
@@ -21,11 +23,11 @@ public class ProductsViewModel extends ViewModel {
 
     public ProductsViewModel(LCBORepository repository) {
         this.repository = repository;
-        hitLCBOApi("MDo4YWUxZGEwNi1kZjRkLTExZTgtYjkxYi0xMzA1ZWYxNjg0ZGY6MGc4M0hhU2JBM1FBdW9CME1JSkZ5MUI5UjRPS2FLTHFCaTR3");
+        hitLCBOApi("1");
     }
 
-    private void hitLCBOApi(String key) {
-        disposables.add(repository.getProducts(key)
+    public void hitLCBOApi(final String page) {
+        disposables.add(repository.getProducts(KEY, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {

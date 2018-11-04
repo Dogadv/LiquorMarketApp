@@ -35,7 +35,7 @@ public class ProductItem {
     private final int bonusRewardMiles;
 
     @SerializedName("bonus_reward_miles_ends_on")
-    private final int bonusRewardMilesEndsOn;
+    private final String bonusRewardMilesEndsOn;
 
     @SerializedName("stock_type")
     private final String stockType;
@@ -83,13 +83,13 @@ public class ProductItem {
     private final int inventoryPriceInCents;
 
     @SerializedName("sugar_content")
-    private final int sugarContent;
+    private final String sugarContent;
 
     @SerializedName("producer_name")
     private final String producerName;
 
     @SerializedName("released_on")
-    private final int releasedOn;
+    private final String releasedOn;
 
     @SerializedName("has_value_added_promotion")
     private final boolean hasValueAddedPromotion;
@@ -157,7 +157,7 @@ public class ProductItem {
     @SerializedName("product_no")
     private final int productNo;
 
-    ProductItem(int id, boolean isDead, String name, String tags, boolean isDiscontinued, int priceInCents, int regularPriceInCents, int limitedTimeOfferSavingsInCents, String limitedTimeOfferEndsOn, int bonusRewardMiles, int bonusRewardMilesEndsOn, String stockType, String primaryCategory, String secondaryCategory, String origin, String packageType, String packageUnitType, int packageUnitVolumeInMilliliters, int totalPackageUnits, int volumeInMilliliters, int alcoholContent, int pricePerLiterOfAlcoholInCents, int pricePerLiterInCents, int inventoryCount, int inventoryVolumeInMilliliters, int inventoryPriceInCents, int sugarContent, String producerName, int releasedOn, boolean hasValueAddedPromotion, boolean hasLimitedTimeOffer, boolean hasBonusRewardMiles, boolean isSeasonal, boolean isVqa, boolean isOcb, boolean isKosher, String valueAddedPromotionDescription, String description, String survingSuggestion, String tastingNote, String updatedAt, String imageThumbUrl, String imageUrl, String varietal, String style, String tertiaryCategory, int sugarInGramsPerLiter, int clearanceSaleSavingInCents, boolean hasClearanceSale, int productNo) {
+    ProductItem(int id, boolean isDead, String name, String tags, boolean isDiscontinued, int priceInCents, int regularPriceInCents, int limitedTimeOfferSavingsInCents, String limitedTimeOfferEndsOn, int bonusRewardMiles, String bonusRewardMilesEndsOn, String stockType, String primaryCategory, String secondaryCategory, String origin, String packageType, String packageUnitType, int packageUnitVolumeInMilliliters, int totalPackageUnits, int volumeInMilliliters, int alcoholContent, int pricePerLiterOfAlcoholInCents, int pricePerLiterInCents, int inventoryCount, int inventoryVolumeInMilliliters, int inventoryPriceInCents, String sugarContent, String producerName, String releasedOn, boolean hasValueAddedPromotion, boolean hasLimitedTimeOffer, boolean hasBonusRewardMiles, boolean isSeasonal, boolean isVqa, boolean isOcb, boolean isKosher, String valueAddedPromotionDescription, String description, String survingSuggestion, String tastingNote, String updatedAt, String imageThumbUrl, String imageUrl, String varietal, String style, String tertiaryCategory, int sugarInGramsPerLiter, int clearanceSaleSavingInCents, boolean hasClearanceSale, int productNo) {
         this.id = id;
         this.isDead = isDead;
         this.name = name;
@@ -250,7 +250,7 @@ public class ProductItem {
         return bonusRewardMiles;
     }
 
-    public int getBonusRewardMilesEndsOn() {
+    public String getBonusRewardMilesEndsOn() {
         return bonusRewardMilesEndsOn;
     }
 
@@ -314,7 +314,7 @@ public class ProductItem {
         return inventoryPriceInCents;
     }
 
-    public int getSugarContent() {
+    public String getSugarContent() {
         return sugarContent;
     }
 
@@ -322,7 +322,7 @@ public class ProductItem {
         return producerName;
     }
 
-    public int getReleasedOn() {
+    public String getReleasedOn() {
         return releasedOn;
     }
 
