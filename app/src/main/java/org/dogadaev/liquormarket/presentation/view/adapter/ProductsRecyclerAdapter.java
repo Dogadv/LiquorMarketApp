@@ -66,6 +66,8 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
         TextView oldPrice;
         @BindView(R.id.productSinglePrice)
         TextView singlePrice;
+        @BindView(R.id.productDiscount)
+        TextView discount;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,7 +77,7 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
         void bind(ProductItem productItem) {
             String sThumbnailLink = productItem.getImageThumbUrl();
             if (sThumbnailLink != null)
-                    Picasso.get().load(sThumbnailLink).into(thumbnail);
+                Picasso.get().load(sThumbnailLink).into(thumbnail);
             else thumbnail.setImageResource(R.drawable.ic_beer);
 
             title.setText(productItem.getName());
@@ -94,12 +96,13 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
                 singlePrice.setVisibility(View.VISIBLE);
             }
 
-            if(productItem.getPriceInCents() < productItem.getRegularPriceInCents()) {
+            if (productItem.getPriceInCents() < productItem.getRegularPriceInCents()) {
                 float fOldPrice = (float) productItem.getRegularPriceInCents() / 100;
                 String sOldPrice = "$" + fOldPrice;
                 oldPrice.setText(sOldPrice);
                 oldPrice.setPaintFlags(Paint.ANTI_ALIAS_FLAG | Paint.STRIKE_THRU_TEXT_FLAG);
                 oldPrice.setVisibility(View.VISIBLE);
+                discount.setVisibility(View.VISIBLE);
             }
         }
     }

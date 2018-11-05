@@ -1,6 +1,15 @@
 package org.dogadaev.liquormarket.presentation.view.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import org.dogadaev.liquormarket.R;
+import org.dogadaev.liquormarket.application.LiquorMarketApplication;
+import org.dogadaev.liquormarket.presentation.view.adapter.EndlessScrollListener;
+import org.dogadaev.liquormarket.presentation.view.adapter.ProductsRecyclerAdapter;
+import org.dogadaev.liquormarket.presentation.vm.ProductsViewModel;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -10,23 +19,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.NumberPicker;
-
-import org.dogadaev.liquormarket.R;
-import org.dogadaev.liquormarket.application.LiquorMarketApplication;
-import org.dogadaev.liquormarket.presentation.view.adapter.EndlessScrollListener;
-import org.dogadaev.liquormarket.presentation.view.adapter.ProductsRecyclerAdapter;
-import org.dogadaev.liquormarket.presentation.vm.ProductsViewModel;
-
 public class ProductsFragment extends Fragment {
 
     @BindView(R.id.productsRecycler)
     RecyclerView recyclerView;
 
-    ProductsViewModel productsViewModel;
+    private ProductsViewModel productsViewModel;
 
     public ProductsFragment() {
     }
@@ -50,7 +48,6 @@ public class ProductsFragment extends Fragment {
             @Override
             public void scrolledToBottom(String nextPage) {
                 productsViewModel.hitLCBOApi(nextPage);
-                System.out.println("NextPage: " + nextPage);
             }
         });
 

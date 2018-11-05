@@ -51,6 +51,7 @@
                 android:id="@+id/productTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxLines="2"
                 android:text="TextView"
                 android:textSize="16sp"
                 app:fontFamily="@font/open_sans_semibold" />
@@ -109,5 +110,24 @@
             app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
             app:layout_constraintStart_toStartOf="@+id/linearLayout2" />
+
+        <TextView
+            android:id="@+id/productDiscount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:alpha=".9"
+            android:background="@drawable/discount_label_background"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="@string/discountLabel"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:visibility="gone"
+            app:fontFamily="@font/open_sans_extrabold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
