@@ -13,9 +13,11 @@ import butterknife.ButterKnife;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.NumberPicker;
 
 import org.dogadaev.liquormarket.R;
 import org.dogadaev.liquormarket.application.LiquorMarketApplication;
+import org.dogadaev.liquormarket.presentation.view.adapter.EndlessScrollListener;
 import org.dogadaev.liquormarket.presentation.view.adapter.ProductsRecyclerAdapter;
 import org.dogadaev.liquormarket.presentation.vm.ProductsViewModel;
 
@@ -42,28 +44,13 @@ public class ProductsFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerAdapter);
 
-        productsViewModel.getItemsLiveData().observe(getActivity(), recyclerAdapter::addData);
+        productsViewModel.getItemsLiveData().observe(this, recyclerAdapter::addData);
 
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            boolean loading = true;
-            int pastVisiblesItems, visibleItemCount, totalItemCount;
-
+        recyclerView.addOnScrollListener(new EndlessScrollListener(productsViewModel.getPageConfigurationLiveData(), this, layoutManager) {
             @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0) {
-                    visibleItemCount = layoutManager.getChildCount();
-                    totalItemCount = layoutManager.getItemCount();
-                    pastVisiblesItems = layoutManager.findFirstVisibleItemPosition();
-
-                    if (loading) {
-                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-                            loading = false;
-                            productsViewModel.hitLCBOApi("2");
-                        }
-                    }
-                }
+            public void scrolledToBottom(String nextPage) {
+                productsViewModel.hitLCBOApi(nextPage);
+                System.out.println("NextPage: " + nextPage);
             }
         });
 
