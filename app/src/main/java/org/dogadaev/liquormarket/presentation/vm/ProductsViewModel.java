@@ -44,6 +44,13 @@ public class ProductsViewModel extends ViewModel {
         );
     }
 
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        disposables.clear();
+        disposables.dispose();
+    }
+
     public MutableLiveData<List<ProductItem>> getItemsLiveData() {
         return itemsLiveData;
     }
