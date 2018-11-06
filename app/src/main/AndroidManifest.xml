@@ -4,6 +4,7 @@
     package="org.dogadaev.liquormarket">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".application.LiquorMarketApplication"

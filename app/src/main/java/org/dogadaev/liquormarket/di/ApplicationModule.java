@@ -37,7 +37,7 @@ public class ApplicationModule {
     Retrofit provideRetrofit() {
         OkHttpClient okHttpClient =
                 new OkHttpClient.Builder()
-                        .connectTimeout(15, TimeUnit.SECONDS)
+                        .connectTimeout(15, TimeUnit.SECONDS )
                         .readTimeout(15, TimeUnit.SECONDS)
                         .writeTimeout(15, TimeUnit.SECONDS)
                         .retryOnConnectionFailure(true)
@@ -57,5 +57,9 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    ViewModelFactory provideViewModelFactory(LCBORepository lcboRepository) { return new ViewModelFactory(lcboRepository); }
+    ViewModelFactory provideViewModelFactory(LCBORepository lcboRepository) { return new ViewModelFactory(application, lcboRepository); }
+
+    @Provides
+    @Singleton
+    Application provideApplication() { return application; }
 }

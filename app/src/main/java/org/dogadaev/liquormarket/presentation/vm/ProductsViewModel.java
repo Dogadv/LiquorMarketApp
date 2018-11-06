@@ -1,8 +1,13 @@
 package org.dogadaev.liquormarket.presentation.vm;
 
+import android.app.Application;
+import android.widget.Toast;
+
+import org.dogadaev.liquormarket.R;
 import org.dogadaev.liquormarket.data.model.PageConfiguration;
 import org.dogadaev.liquormarket.data.model.ProductItem;
 import org.dogadaev.liquormarket.data.repository.LCBORepository;
+import org.dogadaev.liquormarket.util.NetworkUtils;
 
 import java.util.List;
 
@@ -21,9 +26,11 @@ public class ProductsViewModel extends ViewModel {
     private final MutableLiveData<List<ProductItem>> itemsLiveData = new MutableLiveData<>();
     private final MutableLiveData<PageConfiguration> pageConfigurationLiveData = new MutableLiveData<>();
 
-    public ProductsViewModel(LCBORepository repository) {
+    public ProductsViewModel(Application application, LCBORepository repository) {
         this.repository = repository;
-        hitLCBOApi("1");
+        if (NetworkUtils.isNetworkConnected(application))
+            hitLCBOApi("1");
+        else Toast.makeText(application, R.string.noInternetToast, Toast.LENGTH_LONG).show();
     }
 
     public void hitLCBOApi(final String page) {
