@@ -6,6 +6,11 @@
 
     <color name="colorPriceLabel">#FFE9C1</color>
     <color name="discountLabelColor">#FD5454</color>
+    <color name="cardBodyColor">#EBEBEB</color>
+    <color name="tableColor">#DBDBDB</color>
+    <color name="tableRowColor">#CECECE</color>
 
     <color name="white">#FFFFFF</color>
+
+
 </resources>

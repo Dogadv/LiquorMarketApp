@@ -3,4 +3,11 @@
 
     <string name="discountLabel">DISCOUNT</string>
     <string name="noInternetToast">Please, connect to the network</string>
+    <string name="volumeLabel">Volume</string>
+    <string name="packageLabel">Package</string>
+    <string name="alcoholLabel">Alcohol</string>
+    <string name="unitLabel">unit</string>
+    <string name="unitsLabel">units</string>
+    <string name="canLabel">can</string>
+    <string name="bottleLabel">bottle</string>
 </resources>
