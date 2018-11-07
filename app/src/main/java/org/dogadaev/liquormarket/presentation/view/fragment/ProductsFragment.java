@@ -11,6 +11,8 @@ import org.dogadaev.liquormarket.presentation.view.adapter.EndlessScrollListener
 import org.dogadaev.liquormarket.presentation.view.adapter.ProductsRecyclerAdapter;
 import org.dogadaev.liquormarket.presentation.vm.ProductsViewModel;
 
+import java.lang.ref.WeakReference;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -37,7 +39,7 @@ public class ProductsFragment extends Fragment {
         productsViewModel = ViewModelProviders.of(this, ((LiquorMarketApplication) getActivity().getApplication()).getViewModelFactory()).get(ProductsViewModel.class);
 
         recyclerView.setHasFixedSize(true);
-        ProductsRecyclerAdapter recyclerAdapter = new ProductsRecyclerAdapter();
+        ProductsRecyclerAdapter recyclerAdapter = new ProductsRecyclerAdapter(new WeakReference<>(getContext()));
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerAdapter);

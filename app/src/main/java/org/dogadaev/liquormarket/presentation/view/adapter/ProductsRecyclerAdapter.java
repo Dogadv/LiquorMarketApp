@@ -1,5 +1,6 @@
 package org.dogadaev.liquormarket.presentation.view.adapter;
 
+import android.content.Context;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.squareup.picasso.Picasso;
 import org.dogadaev.liquormarket.R;
 import org.dogadaev.liquormarket.data.model.ProductItem;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -25,11 +27,17 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
 
     private List<ProductItem> data = new ArrayList<>();
 
+    private WeakReference<Context> contextWeakReference;
+
+    public ProductsRecyclerAdapter(WeakReference<Context> contextWeakReference) {
+        this.contextWeakReference = contextWeakReference;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_item_layout, parent, false);
-        return new ViewHolder(itemView);
+        return new ViewHolder(itemView, contextWeakReference);
     }
 
     @Override
@@ -66,11 +74,22 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
         TextView oldPrice;
         @BindView(R.id.productSinglePrice)
         TextView singlePrice;
+        @BindView(R.id.productLocation)
+        TextView productLocation;
+        @BindView(R.id.productCategory)
+        TextView productCategory;
+        @BindView(R.id.productVolume)
+        TextView productVolume;
+        @BindView(R.id.productAlcohol)
+        TextView productAlcohol;
         @BindView(R.id.productDiscount)
-        TextView discount;
+        ImageView discount;
 
-        ViewHolder(@NonNull View itemView) {
+        private WeakReference<Context> contextWeakReference;
+
+        ViewHolder(@NonNull View itemView, WeakReference<Context> contextWeakReference) {
             super(itemView);
+            this.contextWeakReference = contextWeakReference;
             ButterKnife.bind(this, itemView);
         }
 
@@ -83,18 +102,23 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
             title.setText(productItem.getName());
 
             int iAmount = productItem.getTotalPackageUnits();
-            String sAmount = "x" + iAmount;
-            amount.setText(sAmount);
+            String sAmount = iAmount + " ";
 
             float fPrice = (float) productItem.getPriceInCents() / 100;
             String sPrice = "$" + fPrice;
+            String sPackage = productItem.getPackageType().contains("can") ? " (can)" : " (bottle)";
             price.setText(sPrice);
 
             if (iAmount > 1) {
                 String sSinglePrice = "($" + String.format(Locale.ENGLISH, "%.2f", fPrice / iAmount) + " per unit)";
                 singlePrice.setText(sSinglePrice);
                 singlePrice.setVisibility(View.VISIBLE);
+                sAmount += contextWeakReference.get().getResources().getString(R.string.unitsLabel) + sPackage;
+            } else {
+                sAmount += contextWeakReference.get().getResources().getString(R.string.unitLabel) + sPackage;
             }
+
+            amount.setText(sAmount);
 
             if (productItem.getPriceInCents() < productItem.getRegularPriceInCents()) {
                 float fOldPrice = (float) productItem.getRegularPriceInCents() / 100;
@@ -104,6 +128,14 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
                 oldPrice.setVisibility(View.VISIBLE);
                 discount.setVisibility(View.VISIBLE);
             }
+
+            String sCategory = productItem.getPrimaryCategory() + "/" + productItem.getSecondaryCategory();
+            sCategory = sCategory.replace("/", " / ");
+            productCategory.setText(sCategory);
+            productLocation.setText(productItem.getOrigin());
+
+            String sAlcohol = String.format(Locale.ENGLISH, "%.1f", (float) productItem.getAlcoholContent() / 100) + "%";
+            productAlcohol.setText(sAlcohol);
         }
     }
 }
