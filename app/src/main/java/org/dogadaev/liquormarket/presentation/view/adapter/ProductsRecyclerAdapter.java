@@ -136,6 +136,9 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
 
             String sAlcohol = String.format(Locale.ENGLISH, "%.1f", (float) productItem.getAlcoholContent() / 100) + "%";
             productAlcohol.setText(sAlcohol);
+
+            String sVolume = productItem.getPackageUnitVolumeInMilliliters() + " " + contextWeakReference.get().getResources().getString(R.string.volumeUnits);
+            productVolume.setText(sVolume);
         }
     }
 }

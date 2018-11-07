@@ -10,4 +10,5 @@
     <string name="unitsLabel">units</string>
     <string name="canLabel">can</string>
     <string name="bottleLabel">bottle</string>
+    <string name="volumeUnits">ml</string>
 </resources>
