@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import org.dogadaev.liquormarket.R;
 import org.dogadaev.liquormarket.application.LiquorMarketApplication;
@@ -26,6 +27,9 @@ public class ProductsFragment extends Fragment {
     @BindView(R.id.productsRecycler)
     RecyclerView recyclerView;
 
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+
     private ProductsViewModel productsViewModel;
     private ProductsRecyclerAdapter recyclerAdapter;
 
@@ -47,7 +51,10 @@ public class ProductsFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerAdapter);
 
-        productsViewModel.getItemsLiveData().observe(this, recyclerAdapter::addData);
+        productsViewModel.getItemsLiveData().observe(this, data -> {
+            recyclerAdapter.addData(data);
+            progressBar.setVisibility(View.GONE);
+        });
 
         recyclerView.addOnScrollListener(new EndlessScrollListener(productsViewModel.getPageConfigurationLiveData(), this, layoutManager) {
             @Override
@@ -62,6 +69,7 @@ public class ProductsFragment extends Fragment {
 
     public void textTyped(String searchRequest) {
         this.searchRequest = searchRequest;
+        progressBar.setVisibility(View.VISIBLE);
         recyclerAdapter.clearData();
         productsViewModel.hitLCBOApi("1", searchRequest);
     }

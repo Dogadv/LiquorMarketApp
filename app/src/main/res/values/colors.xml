@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#E2574D</color>
     <color name="colorPrimaryDark">#B5463E</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#E2574D</color>
 
     <color name="colorPriceLabel">#FFE9C1</color>
     <color name="discountLabelColor">#FD5454</color>
