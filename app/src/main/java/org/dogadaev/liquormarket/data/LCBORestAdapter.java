@@ -21,14 +21,14 @@ public class LCBORestAdapter {
 
     interface LCBOService {
         @GET(UrlManager.API_PRODUCTS)
-        Observable<ProductsResponse> getProducts(@Query(UrlManager.KEY_ALIAS) final String key, @Query(UrlManager.PAGE_ALIAS) final String page);
+        Observable<ProductsResponse> getProducts(@Query(UrlManager.KEY_ALIAS) final String key, @Query(UrlManager.PAGE_ALIAS) final String page, @Query(UrlManager.SEARCH_ALIAS) final String searchRequest);
 
         @GET(UrlManager.API_STORES)
         Observable<StoresResponse> getStores(@Query(UrlManager.KEY_ALIAS) final String key, @Query(UrlManager.PAGE_ALIAS) final String page);
     }
 
-    public Observable<ProductsResponse> getProducts(final String key, final String page) {
-        return lcboService.getProducts(key, page);
+    public Observable<ProductsResponse> getProducts(final String key, final String page, final String searchRequest) {
+        return lcboService.getProducts(key, page, searchRequest);
     }
 
     public Observable<StoresResponse> getStores(final String key, final String page) {

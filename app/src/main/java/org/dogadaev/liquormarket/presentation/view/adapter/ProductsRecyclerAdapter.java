@@ -60,6 +60,11 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
         notifyDataSetChanged();
     }
 
+    public void clearData() {
+        data.clear();
+        notifyDataSetChanged();
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.productThumbnail)

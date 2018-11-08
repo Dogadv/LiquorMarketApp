@@ -29,12 +29,12 @@ public class ProductsViewModel extends ViewModel {
     public ProductsViewModel(Application application, LCBORepository repository) {
         this.repository = repository;
         if (NetworkUtils.isNetworkConnected(application))
-            hitLCBOApi("1");
+            hitLCBOApi("1", "");
         else Toast.makeText(application, R.string.noInternetToast, Toast.LENGTH_LONG).show();
     }
 
-    public void hitLCBOApi(final String page) {
-        disposables.add(repository.getProducts(KEY, page)
+    public void hitLCBOApi(String page, String searchRequest) {
+        disposables.add(repository.getProducts(KEY, page, searchRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {

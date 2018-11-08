@@ -6,6 +6,6 @@ import org.dogadaev.liquormarket.data.model.StoresResponse;
 import io.reactivex.Observable;
 
 public interface LCBORepository {
-    Observable<ProductsResponse> getProducts(final String key, final String page);
+    Observable<ProductsResponse> getProducts(final String key, final String page, final String searchRequest);
     Observable<StoresResponse> getStores(final String key, final String page);
 }

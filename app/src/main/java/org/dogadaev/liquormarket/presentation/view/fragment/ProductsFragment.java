@@ -27,6 +27,9 @@ public class ProductsFragment extends Fragment {
     RecyclerView recyclerView;
 
     private ProductsViewModel productsViewModel;
+    private ProductsRecyclerAdapter recyclerAdapter;
+
+    private String searchRequest;
 
     public ProductsFragment() {
     }
@@ -39,7 +42,7 @@ public class ProductsFragment extends Fragment {
         productsViewModel = ViewModelProviders.of(this, ((LiquorMarketApplication) getActivity().getApplication()).getViewModelFactory()).get(ProductsViewModel.class);
 
         recyclerView.setHasFixedSize(true);
-        ProductsRecyclerAdapter recyclerAdapter = new ProductsRecyclerAdapter(new WeakReference<>(getContext()));
+        recyclerAdapter = new ProductsRecyclerAdapter(new WeakReference<>(getContext()));
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerAdapter);
@@ -49,10 +52,17 @@ public class ProductsFragment extends Fragment {
         recyclerView.addOnScrollListener(new EndlessScrollListener(productsViewModel.getPageConfigurationLiveData(), this, layoutManager) {
             @Override
             public void scrolledToBottom(String nextPage) {
-                productsViewModel.hitLCBOApi(nextPage);
+                productsViewModel.hitLCBOApi(nextPage, searchRequest);
+
             }
         });
 
         return rootView;
+    }
+
+    public void textTyped(String searchRequest) {
+        this.searchRequest = searchRequest;
+        recyclerAdapter.clearData();
+        productsViewModel.hitLCBOApi("1", searchRequest);
     }
 }

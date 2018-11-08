@@ -15,8 +15,8 @@ public class LCBORepositoryImpl implements LCBORepository {
     }
 
     @Override
-    public Observable<ProductsResponse> getProducts(final String key, final String page) {
-        return restAdapter.getProducts(key, page);
+    public Observable<ProductsResponse> getProducts(final String key, final String page, final String searchRequest) {
+        return restAdapter.getProducts(key, page, searchRequest);
     }
 
     @Override

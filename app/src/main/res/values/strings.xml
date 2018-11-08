@@ -11,4 +11,5 @@
     <string name="canLabel">can</string>
     <string name="bottleLabel">bottle</string>
     <string name="volumeUnits">ml</string>
+    <string name="searchLabel">Search</string>
 </resources>
