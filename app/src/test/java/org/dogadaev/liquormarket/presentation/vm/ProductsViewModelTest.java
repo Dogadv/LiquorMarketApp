@@ -46,6 +46,7 @@ public class ProductsViewModelTest {
     private static final int TEST_CODE = 1182018;
     private static final String TEST_KEY = "MDo4YWUxZGEwNi1kZjRkLTExZTgtYjkxYi0xMzA1ZWYxNjg0ZGY6MGc4M0hhU2JBM1FBdW9CME1JSkZ5MUI5UjRPS2FLTHFCaTR3";
     private static final String TEST_PAGE = "1";
+    private static final String TEST_QUERY = "";
 
     @Mock
     LCBORepository lcboRepository;
@@ -73,15 +74,6 @@ public class ProductsViewModelTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-
-        when(application.getSystemService(Context.CONNECTIVITY_SERVICE)).thenReturn(connectivityManager);
-        when(connectivityManager.getActiveNetworkInfo()).thenReturn(networkInfo);
-        when(networkInfo.isConnectedOrConnecting()).thenReturn(true);
-        when(lcboRepository.getProducts(TEST_KEY, TEST_PAGE)).thenReturn(Observable.just(productsResponse));
-        when(productsResponse.getPageConfiguration()).thenReturn(pageConfiguration);
-        when(productsResponse.getItems()).thenReturn(productItems);
-
-        productsViewModel = new ProductsViewModel(application, lcboRepository);
     }
 
     @After
@@ -90,6 +82,15 @@ public class ProductsViewModelTest {
 
     @Test
     public void testResponseLiveData() throws Exception {
+        when(application.getSystemService(Context.CONNECTIVITY_SERVICE)).thenReturn(connectivityManager);
+        when(connectivityManager.getActiveNetworkInfo()).thenReturn(networkInfo);
+        when(networkInfo.isConnectedOrConnecting()).thenReturn(true);
+        when(lcboRepository.getProducts(TEST_KEY, TEST_PAGE, TEST_QUERY)).thenReturn(Observable.just(productsResponse));
+        when(productsResponse.getPageConfiguration()).thenReturn(pageConfiguration);
+        when(productsResponse.getItems()).thenReturn(productItems);
+
+        productsViewModel = new ProductsViewModel(application, lcboRepository);
+
         productsViewModel.getPageConfigurationLiveData().observeForever(TestCase::assertNotNull);
         productsViewModel.getItemsLiveData().observeForever(TestCase::assertNotNull);
     }

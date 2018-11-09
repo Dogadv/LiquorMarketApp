@@ -2,7 +2,6 @@ package org.dogadaev.liquormarket.application;
 
 import android.app.Application;
 
-import org.dogadaev.liquormarket.data.model.StoresResponse;
 import org.dogadaev.liquormarket.di.ApplicationComponent;
 import org.dogadaev.liquormarket.di.ApplicationModule;
 import org.dogadaev.liquormarket.di.DaggerApplicationComponent;

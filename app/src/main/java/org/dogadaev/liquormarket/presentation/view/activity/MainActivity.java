@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
     private final CompositeDisposable disposables = new CompositeDisposable();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

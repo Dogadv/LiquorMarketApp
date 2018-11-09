@@ -1,6 +1,5 @@
 package org.dogadaev.liquormarket.presentation.view.adapter;
 
-import android.widget.AbsListView;
 import android.widget.NumberPicker;
 
 import org.dogadaev.liquormarket.data.model.PageConfiguration;

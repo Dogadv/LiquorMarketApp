@@ -26,7 +26,7 @@ public class ProductsViewModel extends ViewModel {
     private final MutableLiveData<List<ProductItem>> itemsLiveData = new MutableLiveData<>();
     private final MutableLiveData<PageConfiguration> pageConfigurationLiveData = new MutableLiveData<>();
 
-    public ProductsViewModel(Application application, LCBORepository repository) {
+    ProductsViewModel(Application application, LCBORepository repository) {
         this.repository = repository;
         if (NetworkUtils.isNetworkConnected(application))
             hitLCBOApi("1", "");

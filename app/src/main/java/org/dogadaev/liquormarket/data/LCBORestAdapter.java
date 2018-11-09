@@ -3,10 +3,7 @@ package org.dogadaev.liquormarket.data;
 import org.dogadaev.liquormarket.data.model.ProductsResponse;
 import org.dogadaev.liquormarket.data.model.StoresResponse;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import io.reactivex.Observable;
-import io.reactivex.Single;
 import retrofit2.Retrofit;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
