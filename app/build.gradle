@@ -7,6 +7,7 @@ ext {
     constraintLayoutVersion = '1.1.3'
     recyclerViewVersion = '1.0.0'
     cardviewVersion = '1.0.0'
+    drawerlayoutVersion = '1.0.0'
     rxjavaVersion = '2.1.7'
     rxandroidVersion = '2.1.0'
     retrofitVersion = '2.4.0'
@@ -73,6 +74,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
     implementation "androidx.cardview:cardview:$cardviewVersion"
+    implementation "androidx.drawerlayout:drawerlayout:$drawerlayoutVersion"
 
     // ReactiveX
     implementation "io.reactivex.rxjava2:rxjava:$rxjavaVersion"
