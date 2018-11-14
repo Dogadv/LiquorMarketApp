@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import com.google.android.material.navigation.NavigationView;
+
 import org.dogadaev.liquormarket.R;
 import org.dogadaev.liquormarket.presentation.view.fragment.ProductsFragment;
 
@@ -15,6 +17,8 @@ import java.util.concurrent.TimeUnit;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
@@ -29,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.searchField)
     EditText searchField;
+
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
+
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
 
     private Menu menu;
 
@@ -85,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(productsFragment::textTyped));
+
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
     @Override
@@ -98,10 +110,19 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.sortMenuItem:
+                drawerLayout.openDrawer(navigationView);
                 break;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(navigationView))
+            drawerLayout.closeDrawer(navigationView);
+        else
+            super.onBackPressed();
     }
 }
