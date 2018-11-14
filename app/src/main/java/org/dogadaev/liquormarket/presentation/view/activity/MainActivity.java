@@ -3,6 +3,8 @@ package org.dogadaev.liquormarket.presentation.view.activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 
 import org.dogadaev.liquormarket.R;
@@ -27,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.searchField)
     EditText searchField;
+
+    private Menu menu;
 
     ProductsFragment productsFragment;
 
@@ -81,5 +85,23 @@ public class MainActivity extends AppCompatActivity {
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(productsFragment::textTyped));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_sort_menu, menu);
+        this.menu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.sortMenuItem:
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
