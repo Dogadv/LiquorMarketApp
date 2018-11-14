@@ -20,7 +20,16 @@ public class LCBORepositoryImpl implements LCBORepository {
     }
 
     @Override
+    public Observable<ProductsResponse> getDiscontinuedProducts(String key, String page, String searchRequest) {
+        return restAdapter.getProducts(key, page, searchRequest, WhereQueryParameters.is_discontinued.toString());
+    }
+
+    @Override
     public Observable<StoresResponse> getStores(final String key, final String page) {
         return restAdapter.getStores(key, page);
+    }
+
+    enum WhereQueryParameters {
+        is_discontinued
     }
 }

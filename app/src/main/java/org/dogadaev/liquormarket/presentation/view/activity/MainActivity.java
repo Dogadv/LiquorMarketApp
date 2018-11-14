@@ -96,6 +96,13 @@ public class MainActivity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(productsFragment::textTyped));
 
+        navigationView.setNavigationItemSelectedListener(menuItem -> {
+            menuItem.setChecked(!menuItem.isChecked());
+            productsFragment.onNavigationItemSelected(menuItem);
+            drawerLayout.closeDrawer(navigationView);
+            return false;
+        });
+
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 

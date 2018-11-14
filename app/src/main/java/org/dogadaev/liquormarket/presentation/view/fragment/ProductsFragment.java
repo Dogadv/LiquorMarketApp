@@ -2,6 +2,7 @@ package org.dogadaev.liquormarket.presentation.view.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -45,7 +46,6 @@ public class ProductsFragment extends Fragment {
 
         productsViewModel = ViewModelProviders.of(this, ((LiquorMarketApplication) getActivity().getApplication()).getViewModelFactory()).get(ProductsViewModel.class);
 
-        recyclerView.setHasFixedSize(true);
         recyclerAdapter = new ProductsRecyclerAdapter(new WeakReference<>(getContext()));
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -60,11 +60,24 @@ public class ProductsFragment extends Fragment {
             @Override
             public void scrolledToBottom(String nextPage) {
                 productsViewModel.hitLCBOApi(nextPage, searchRequest);
-
             }
         });
 
         return rootView;
+    }
+
+    public void onNavigationItemSelected(MenuItem menuItem) {
+        progressBar.setVisibility(View.VISIBLE);
+        recyclerAdapter.clearData();
+
+        switch (menuItem.getItemId()) {
+            case R.id.isDiscontinued:
+                if (!menuItem.isChecked())
+                    productsViewModel.hitLCBOApi("1", searchRequest);
+                else
+                    productsViewModel.hitLCBOApiWithWhere("1", searchRequest);
+                break;
+        }
     }
 
     public void textTyped(String searchRequest) {

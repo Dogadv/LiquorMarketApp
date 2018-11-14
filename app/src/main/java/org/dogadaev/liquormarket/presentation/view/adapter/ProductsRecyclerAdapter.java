@@ -2,6 +2,7 @@ package org.dogadaev.liquormarket.presentation.view.adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,13 +126,16 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
 
             amount.setText(sAmount);
 
-            if (productItem.getPriceInCents() < productItem.getRegularPriceInCents()) {
+            if (productItem.isDiscontinued() && productItem.getPriceInCents() > productItem.getRegularPriceInCents()) {
                 float fOldPrice = (float) productItem.getRegularPriceInCents() / 100;
                 String sOldPrice = "$" + fOldPrice;
                 oldPrice.setText(sOldPrice);
                 oldPrice.setPaintFlags(Paint.ANTI_ALIAS_FLAG | Paint.STRIKE_THRU_TEXT_FLAG);
                 oldPrice.setVisibility(View.VISIBLE);
                 discount.setVisibility(View.VISIBLE);
+            } else {
+                discount.setVisibility(View.GONE);
+                oldPrice.setVisibility(View.GONE);
             }
 
             String sCategory = productItem.getPrimaryCategory() + "/" + productItem.getSecondaryCategory();
@@ -144,6 +148,11 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
 
             String sVolume = productItem.getPackageUnitVolumeInMilliliters() + " " + contextWeakReference.get().getResources().getString(R.string.volumeUnits);
             productVolume.setText(sVolume);
+
+            Log.wtf("name:           ", productItem.getName());
+            Log.wtf("isDiscontinued: ", productItem.isDiscontinued() + "");
+            Log.wtf("currentPrice:   ", productItem.getPriceInCents() + "");
+            Log.wtf("regularPrice:   ", productItem.getRegularPriceInCents() + "");
         }
     }
 }

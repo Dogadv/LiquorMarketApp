@@ -7,5 +7,6 @@ import io.reactivex.Observable;
 
 public interface LCBORepository {
     Observable<ProductsResponse> getProducts(final String key, final String page, final String searchRequest);
+    Observable<ProductsResponse> getDiscontinuedProducts(final String key, final String page, final String searchRequest);
     Observable<StoresResponse> getStores(final String key, final String page);
 }

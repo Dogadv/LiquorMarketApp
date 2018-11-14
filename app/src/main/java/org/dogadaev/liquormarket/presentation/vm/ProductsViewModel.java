@@ -44,6 +44,17 @@ public class ProductsViewModel extends ViewModel {
         );
     }
 
+    public void hitLCBOApiWithWhere(String page, String searchRequest) {
+        disposables.add(repository.getDiscontinuedProducts(KEY, page, searchRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+                    itemsLiveData.setValue(response.getItems());
+                    pageConfigurationLiveData.setValue(response.getPageConfiguration());
+                })
+        );
+    }
+
     @Override
     protected void onCleared() {
         super.onCleared();

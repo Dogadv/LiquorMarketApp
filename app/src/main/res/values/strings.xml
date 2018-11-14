@@ -12,4 +12,6 @@
     <string name="bottleLabel">bottle</string>
     <string name="volumeUnits">ml</string>
     <string name="searchLabel">Search</string>
+
+    <string name="isDiscontinuedLabel">Only discontinued</string>
 </resources>
